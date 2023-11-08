@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "913600740711",
+    "project_id": "tecnictestbzpay",
+    "storage_bucket": "tecnictestbzpay.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:913600740711:android:09e89f7bd836ddc35843c2",
+        "android_client_info": {
+          "package_name": "com.test.testtecnicbzpay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "913600740711-182p0142aegr3kpurfuvng25svv9o336.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.test.testtecnicbzpay",
+            "certificate_hash": "9556713f95f2af60a920600fccf0b3568523c81b"
+          }
+        },
+        {
+          "client_id": "913600740711-n66fmt4mifrgo2gj3rh4loqvg0lp36sb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTWXqUh7NAiJTymrLOl-msws0kTsJ7FoM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "913600740711-n66fmt4mifrgo2gj3rh4loqvg0lp36sb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

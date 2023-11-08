@@ -48,6 +48,7 @@ dependencies {
     val roomVersion = "2.6.0"
     val retrofitVersion = "2.9.0"
     val hiltVersion = "2.44"
+    val materialComponents = "1.10.0"
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -64,11 +65,11 @@ dependencies {
     // Room Dependencies
     implementation("androidx.room:room-runtime:$roomVersion")
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
-        // Kotlin Extensions and Coroutines support for Room
+    // Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$roomVersion")
-        // Guava support for Room
+    // Guava support for Room
     implementation("androidx.room:room-guava:$roomVersion")
-        // Paging 3 Integration
+    // Paging 3 Integration
     implementation("androidx.room:room-paging:$roomVersion")
 
     // Retrofit
@@ -82,7 +83,12 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
     implementation("com.google.firebase:firebase-crashlytics")
+    implementation ("com.firebaseui:firebase-ui-auth:7.2.0")
+
+    // Material Design Components
+    implementation("com.google.android.material:material:$materialComponents")
 }
 
 kapt {

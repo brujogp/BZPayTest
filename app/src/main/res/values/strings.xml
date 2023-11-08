@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">TestTecnicBzpay</string>
+    <string name="app_name">Technical Test BZPay</string>
+    <string name="student_list_tittle">Estudiantes</string>
+    <string name="weather">Clima</string>
+    <string name="email_hint">Correo Electrónico</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="restore_password_button_text">¿Olvidaste tu contraseña? Restablécela</string>
+    <string name="sign_in_button_text">Ó regístrate</string>
+    <string name="login_text">Iniciar sesión</string>
+    <string name="login_with_google_text">Iniciar sesión con Google</string>
+    <string name="copyright_text">Por Bruno Joctán García Palma 🤠</string>
+    <string name="web_client_id">913600740711-n66fmt4mifrgo2gj3rh4loqvg0lp36sb.apps.googleusercontent.com</string>
+    <string name="name_hint">Nombre(s)</string>
+    <string name="lastname_hint">Apellido(s)</string>
+    <string name="explain_password_hint">Nueva contraseña</string>
+    <string name="repeat_password_hint">Repetir contraseña</string>
+    <string name="wait_a_moment_label">Espere un momento</string>
 </resources>
