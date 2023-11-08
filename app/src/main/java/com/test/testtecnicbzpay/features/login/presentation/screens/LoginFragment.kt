@@ -76,7 +76,6 @@ class LoginFragment : BaseFragment() {
                         passwordInputText.text.toString()
                     )
             }
-
             loginWithGoogleButton.setOnClickListener {
                 this@LoginFragment.oneTapClient = Identity.getSignInClient(requireActivity())
                 loginViewModel.signInWithGoogle(requireActivity())
@@ -90,21 +89,68 @@ class LoginFragment : BaseFragment() {
     private fun verifyLoginState(loggingState: LoggingState?) {
         if (loggingState != null) {
             if (loggingState.isLoading) {
-                onLoadingDialog("Espere un momento", "Iniciando Sesión")
+                onLoadingDialog(
+                    getString(R.string.wait_moment),
+                    getString(R.string.sign_in_message)
+                )
             }
             loggingState.state?.let {
                 loggingWithGoogleContract.launch(loggingState.state)
             }
             if (loggingState.error?.isNotEmpty() == true) {
                 Toast
-                    .makeText(requireContext(), "No se pudo iniciar sesión", Toast.LENGTH_LONG)
+                    .makeText(
+                        requireContext(),
+                        getString(R.string.sign_in_error_message),
+                        Toast.LENGTH_LONG
+                    )
                     .show()
             }
         }
     }
 
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        this.binding = null
+    }
+
+    private var loggingWithGoogleContract =
+        registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) {
+            val googleCredential = oneTapClient.getSignInCredentialFromIntent(it.data)
+            val idToken = googleCredential.googleIdToken
+            when {
+                idToken != null -> {
+                    val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
+                    auth.signInWithCredential(firebaseCredential)
+                        .addOnCompleteListener(requireActivity()) { task ->
+                            if (task.isSuccessful) {
+                                findNavController().navigate(R.id.action_loginFragment_to_hostFeaturesFragment)
+                            } else {
+                                Toast.makeText(
+                                    requireContext(),
+                                    getString(R.string.sign_in_error_message),
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                }
+
+                else -> {
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.sign_in_error_message),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+
     private fun loginWithEmail(email: String, password: String) {
-        onLoadingDialog("Espere un momento", "Iniciando Sesión")
+        onLoadingDialog(
+            getString(R.string.wait_moment),
+            getString(R.string.sign_in_message)
+        )
 
         auth.signInWithEmailAndPassword(
             email,
@@ -124,51 +170,10 @@ class LoginFragment : BaseFragment() {
             } else {
                 Toast.makeText(
                     requireContext(),
-                    "Error al iniciar sesión",
+                    getString(R.string.sign_in_error_message),
                     Toast.LENGTH_LONG
                 ).show()
             }
         }
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        this.binding = null
-    }
-
-    private var loggingWithGoogleContract =
-        registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) {
-            val googleCredential = oneTapClient.getSignInCredentialFromIntent(it.data)
-            val idToken = googleCredential.googleIdToken
-            when {
-                idToken != null -> {
-                    val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
-                    auth.signInWithCredential(firebaseCredential)
-                        .addOnCompleteListener(requireActivity()) { task ->
-                            if (task.isSuccessful) {
-                                findNavController().navigate(R.id.action_loginFragment_to_hostFeaturesFragment)
-                                Toast.makeText(
-                                    requireContext(),
-                                    auth.currentUser.toString(),
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            } else {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Error al iniciar sesión",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                        }
-                }
-
-                else -> {
-                    Toast.makeText(
-                        requireContext(),
-                        "Error al iniciar sesión",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
-        }
 }
