@@ -14,6 +14,10 @@
 .idea/
 .idea/sonarlint/
 .idea/sonarlint/**
+.idea/sonarlint/*
+*.iws
+*.ipr
+.idea
 
 .DS_Store
 /build

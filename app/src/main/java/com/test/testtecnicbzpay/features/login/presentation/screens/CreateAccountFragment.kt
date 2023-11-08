@@ -1,22 +1,19 @@
-package com.test.testtecnicbzpay.features.login.presentation
+package com.test.testtecnicbzpay.features.login.presentation.screens
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.room.util.findColumnIndexBySuffix
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.test.testtecnicbzpay.R
-import com.test.testtecnicbzpay.commons.ui.CustomProgressDialog
+import com.test.testtecnicbzpay.commons.presentation.BaseFragment
 import com.test.testtecnicbzpay.databinding.FragmentCreateAccountBinding
 
-class CreateAccountFragment : Fragment() {
-    private lateinit var progressDialogFragment: CustomProgressDialog
+class CreateAccountFragment : BaseFragment() {
     private var binding: FragmentCreateAccountBinding? = null
     private lateinit var auth: FirebaseAuth
 
@@ -33,10 +30,6 @@ class CreateAccountFragment : Fragment() {
     private fun setBinding(inflate: LayoutInflater, container: ViewGroup?) =
         FragmentCreateAccountBinding.inflate(inflate, container, false)
 
-    private fun onLoadingDialog(title: String, message: String) {
-        this.progressDialogFragment = CustomProgressDialog.newInstance(title, message)
-        progressDialogFragment.show(childFragmentManager, "dialog")
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding?.apply {
@@ -47,7 +40,7 @@ class CreateAccountFragment : Fragment() {
                     emailInputText.text.toString(),
                     passwordInputText.text.toString()
                 ).addOnCompleteListener(requireActivity()) { task ->
-                    this@CreateAccountFragment.progressDialogFragment.dismissNow()
+                    this@CreateAccountFragment.dismissDialog()
 
                     if (task.isSuccessful) {
                         Toast.makeText(

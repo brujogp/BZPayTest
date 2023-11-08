@@ -1,4 +1,4 @@
-package com.test.testtecnicbzpay.commons.ui
+package com.test.testtecnicbzpay.commons.presentation
 
 import android.app.Dialog
 import android.content.res.Configuration

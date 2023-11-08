@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.test.testtecnicbzpay.features.login.presentation.LoginFragment"
+        android:name="com.test.testtecnicbzpay.features.login.presentation.screens.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/createAccountFragment"
-        android:name="com.test.testtecnicbzpay.features.login.presentation.CreateAccountFragment"
+        android:name="com.test.testtecnicbzpay.features.login.presentation.screens.CreateAccountFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_create_account">
         <action
