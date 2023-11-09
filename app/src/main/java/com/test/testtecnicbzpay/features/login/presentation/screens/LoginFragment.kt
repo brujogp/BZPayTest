@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
@@ -19,7 +18,7 @@ import com.google.firebase.ktx.Firebase
 import com.test.testtecnicbzpay.R
 import com.test.testtecnicbzpay.commons.presentation.BaseFragment
 import com.test.testtecnicbzpay.databinding.FragmentLoginBinding
-import com.test.testtecnicbzpay.features.HostActivity
+import com.test.testtecnicbzpay.features.featuresinlogin.HostActivity
 import com.test.testtecnicbzpay.features.login.presentation.states.LoggingWithEmailState
 import com.test.testtecnicbzpay.features.login.presentation.states.LoggingWithGoogleState
 import com.test.testtecnicbzpay.features.login.presentation.viewmodels.LoginViewModel

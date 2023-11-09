@@ -1,4 +1,4 @@
-package com.test.testtecnicbzpay
+package com.test.testtecnicbzpay.features.login.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,7 +6,7 @@ import com.test.testtecnicbzpay.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     private var binding: ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

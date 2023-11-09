@@ -1,11 +1,10 @@
-package com.test.testtecnicbzpay.features.abc.presentation
+package com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.test.testtecnicbzpay.commons.presentation.BaseFragment
-import com.test.testtecnicbzpay.databinding.FragmentLoginBinding
 import com.test.testtecnicbzpay.databinding.FragmentStudentsListBinding
 
 class StudentsListFragment : BaseFragment() {
