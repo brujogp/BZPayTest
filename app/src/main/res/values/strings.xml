@@ -20,4 +20,7 @@
     <string name="repeat_password_hint">Repetir contraseña</string>
     <string name="wait_a_moment_label">Espere un momento</string>
     <string name="not_found_students">No se encontraron estudiantes</string>
+    <string name="student_name">Nombre(s) del alumno</string>
+    <string name="subject_hint">Asignatura</string>
+    <string name="save_student_text">Registrar estudiante</string>
 </resources>

@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import com.test.testtecnicbzpay.R
 import com.test.testtecnicbzpay.commons.presentation.BaseFragment
 import com.test.testtecnicbzpay.databinding.FragmentStudentsListBinding
+import com.test.testtecnicbzpay.features.featuresinlogin.abc.data.database.entities.Student
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.states.StudentsState
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.viewmodels.StudentViewModel
 
@@ -51,14 +52,14 @@ class StudentsListFragment : BaseFragment() {
                 getString(R.string.get_students_message)
             )
         }
-        studentsState.studentsList?.let {
-            Log.d("TEST-T", it.toString())
+        studentsState.studentsList?.let { result: List<Student> ->
+            Log.d("TEST-T", result.toString())
         }
 
         if (studentsState.error?.isNotEmpty() == true) {
             Toast.makeText(
                 requireContext(),
-                getString(R.string.not_found_students),
+                studentsState.error,
                 Toast.LENGTH_LONG
             ).show()
         }
