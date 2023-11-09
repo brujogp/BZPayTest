@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/studentsListFragment"
-        android:name="com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.StudentsListFragment"
+        android:name="com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.fragments.ScreenStudentsFragment"
         android:label="StudentsListFragment"
         tools:layout="@layout/fragment_students_list" />
     <fragment

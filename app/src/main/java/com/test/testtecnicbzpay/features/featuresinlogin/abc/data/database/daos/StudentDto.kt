@@ -11,5 +11,5 @@ interface StudentDto {
     fun getAll(): List<Student>
 
     @Insert
-    fun insertAll(vararg users: Student)
+    fun insert(users: Student)
 }

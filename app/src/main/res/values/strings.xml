@@ -23,4 +23,5 @@
     <string name="student_name">Nombre(s) del alumno</string>
     <string name="subject_hint">Asignatura</string>
     <string name="save_student_text">Registrar estudiante</string>
+    <string name="new_student_registered">Estudiante registrado</string>
 </resources>

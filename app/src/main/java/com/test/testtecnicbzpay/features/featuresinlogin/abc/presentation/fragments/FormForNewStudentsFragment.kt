@@ -1,17 +1,17 @@
-package com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation
+package com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import com.test.testtecnicbzpay.commons.presentation.BaseFragment
 import com.test.testtecnicbzpay.databinding.FragmentFormForNewStudentsBinding
-import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.viewmodels.StudentViewModel
+import com.test.testtecnicbzpay.features.featuresinlogin.abc.domain.dtos.StudentEntityDto
 
-class FromForNewStudentsFragment : BaseFragment() {
+class FormForNewStudentsFragment(
+    private val onCompleteRegistrationStudent: (StudentEntityDto) -> Unit
+) : BaseFragment() {
     private var binding: FragmentFormForNewStudentsBinding? = null
-    private val studentsViewModel by activityViewModels<StudentViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,8 +26,25 @@ class FromForNewStudentsFragment : BaseFragment() {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        configBinding()
+    }
+
     private fun setBinding(inflate: LayoutInflater, container: ViewGroup?) =
         FragmentFormForNewStudentsBinding.inflate(inflate, container, false)
+
+    private fun configBinding() {
+        this.binding?.apply {
+            saveStudentButton.setOnClickListener {
+                this@FormForNewStudentsFragment.onCompleteRegistrationStudent.invoke(
+                    StudentEntityDto(
+                        studentName = studentNameInputText.text.toString(),
+                        subject = subjectInputText.text.toString()
+                    )
+                )
+            }
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
