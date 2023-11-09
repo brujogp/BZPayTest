@@ -13,8 +13,9 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class StudentViewModel @Inject constructor(private val getStudentsUseCase: GetStudentsUseCase) :
-    ViewModel() {
+class StudentViewModel @Inject constructor(
+    private val getStudentsUseCase: GetStudentsUseCase
+) : ViewModel() {
 
     private val _getStudentsState = MutableLiveData<StudentsState>()
     val getStudentsState: LiveData<StudentsState> = _getStudentsState

@@ -6,7 +6,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.test.testtecnicbzpay.R
 import com.test.testtecnicbzpay.databinding.ActivityHostBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HostActivity : AppCompatActivity() {
     private var binding: ActivityHostBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {

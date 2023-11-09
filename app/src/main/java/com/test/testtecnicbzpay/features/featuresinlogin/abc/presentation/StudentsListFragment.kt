@@ -38,7 +38,10 @@ class StudentsListFragment : BaseFragment() {
     }
 
     private fun getStudentsList() {
-
+        studentsViewModel.getStudentsList()
+        studentsViewModel.getStudentsState.observe(viewLifecycleOwner) {
+            validateStudentsStatus(it)
+        }
     }
 
     private fun validateStudentsStatus(studentsState: StudentsState) {

@@ -20,7 +20,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object StudentsModule {
-
     @Provides
     @Singleton
     fun provideStudentDatabase(@ApplicationContext appContext: Context) =
