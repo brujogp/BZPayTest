@@ -1,4 +1,4 @@
-package com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation
+package com.test.testtecnicbzpay.features.featuresinlogin.weather.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater

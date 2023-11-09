@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_students_list" />
     <fragment
         android:id="@+id/weatherFragment"
-        android:name="com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.WeatherFragment"
+        android:name="com.test.testtecnicbzpay.features.featuresinlogin.weather.presentation.WeatherFragment"
         android:label="WeatherFragment"
         tools:layout="@layout/fragment_weather" />
 </navigation>

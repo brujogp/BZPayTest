@@ -12,10 +12,12 @@
     <string name="web_client_id">913600740711-n66fmt4mifrgo2gj3rh4loqvg0lp36sb.apps.googleusercontent.com</string>
     <string name="wait_moment">Espere un momento</string>
     <string name="sign_in_message">Iniciando Sesión</string>
+    <string name="get_students_message">Recuperando alumnos</string>
     <string name="sign_in_error_message">No se pudo iniciar sesión</string>
     <string name="name_hint">Nombre(s)</string>
     <string name="lastname_hint">Apellido(s)</string>
     <string name="explain_password_hint">Nueva contraseña</string>
     <string name="repeat_password_hint">Repetir contraseña</string>
     <string name="wait_a_moment_label">Espere un momento</string>
+    <string name="not_found_students">No se encontraron estudiantes</string>
 </resources>
