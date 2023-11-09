@@ -1,7 +1,6 @@
 package com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import com.test.testtecnicbzpay.R
 import com.test.testtecnicbzpay.commons.presentation.BaseFragment
 import com.test.testtecnicbzpay.databinding.FragmentStudentsScreenBinding
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.domain.dtos.StudentEntityDto
-import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.states.GetStudentsState
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.states.RegisterNewStudentState
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.viewmodels.StudentViewModel
 
@@ -41,7 +39,6 @@ class ScreenStudentsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         configBinding()
-        getStudentsList()
     }
 
     private fun configBinding() {
@@ -53,7 +50,6 @@ class ScreenStudentsFragment : BaseFragment() {
 
             this@ScreenStudentsFragment.studentsListFragment =
                 StudentsListFragment()
-
 
             configFragments(formForNewStudentsContainer, studentsListContainer)
         }
@@ -113,35 +109,6 @@ class ScreenStudentsFragment : BaseFragment() {
         }
     }
 
-    private fun getStudentsList() {
-        studentsViewModel.getStudentsList()
-        studentsViewModel.getStudentsState.observe(viewLifecycleOwner) {
-            validateGetStudentsStatus(it)
-        }
-    }
-
-    private fun validateGetStudentsStatus(getStudentsState: GetStudentsState) {
-        if (getStudentsState.isLoading) {
-            onLoadingDialog(
-                getString(R.string.wait_moment),
-                getString(R.string.get_students_message)
-            )
-        }
-
-        getStudentsState.studentsList?.let { result: List<StudentEntityDto> ->
-            dismissDialog()
-            Log.d("TEST-T", result.toString())
-        }
-
-        if (getStudentsState.error?.isNotEmpty() == true) {
-            dismissDialog()
-            Toast.makeText(
-                requireContext(),
-                getStudentsState.error,
-                Toast.LENGTH_LONG
-            ).show()
-        }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
