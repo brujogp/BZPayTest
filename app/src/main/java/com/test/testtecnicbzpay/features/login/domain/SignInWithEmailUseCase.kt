@@ -1,25 +1,27 @@
 package com.test.testtecnicbzpay.features.login.domain
 
 import android.app.Activity
+import androidx.fragment.app.FragmentActivity
 import com.test.testtecnicbzpay.commons.domain.ResponseState
-import com.test.testtecnicbzpay.features.login.data.dtos.LoginWithGoogleDTO
 import com.test.testtecnicbzpay.features.login.data.repository.LoginRepository
-import com.test.testtecnicbzpay.features.login.presentation.states.LoggingWithGoogleState
-import kotlinx.coroutines.flow.Flow
+import com.test.testtecnicbzpay.features.login.presentation.states.LoggingWithEmailState
 import kotlinx.coroutines.flow.flow
+import java.util.concurrent.Flow
 import javax.inject.Inject
 
-class LoginWithGoogleUseCase @Inject constructor(
+class SignInWithEmailUseCase @Inject constructor(
     private val loginRepository: LoginRepository
 ) {
     operator fun invoke(
+        email: String,
+        password: String,
         activity: Activity,
-    ): Flow<ResponseState<LoggingWithGoogleState>> = flow {
+    ) = flow {
         emit(ResponseState.Loading())
-        val response: LoginWithGoogleDTO = loginRepository.loginWithGoogle(activity)
 
+        val response = loginRepository.signInWithEmail(email, password, activity)
         if (response.meta.status == "SUCCESS") {
-            emit(ResponseState.Success(LoggingWithGoogleState(state = response.intentSender)))
+            emit(ResponseState.Success(LoggingWithEmailState(user = response.user)))
         } else if (response.meta.status == "ERROR") {
             emit(ResponseState.Error(response.meta.error))
         }

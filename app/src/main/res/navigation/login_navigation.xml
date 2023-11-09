@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_loginFragment_to_createAccountFragment"
             app:destination="@id/createAccountFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_hostFeaturesFragment"
-            app:destination="@id/hostFeaturesFragment" />
     </fragment>
 
     <fragment
@@ -26,13 +23,6 @@
         <action
             android:id="@+id/action_createAccountFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/action_createAccountFragment_to_hostFeaturesFragment"
-            app:destination="@id/hostFeaturesFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/hostFeaturesFragment"
-        android:name="com.test.testtecnicbzpay.main.presentation.HostFeaturesFragment"
-        android:label="HostFeaturesFragment" />
 
 </navigation>

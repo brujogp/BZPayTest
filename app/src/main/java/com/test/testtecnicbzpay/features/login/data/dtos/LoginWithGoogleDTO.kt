@@ -1,8 +1,9 @@
 package com.test.testtecnicbzpay.features.login.data.dtos
 
 import androidx.activity.result.IntentSenderRequest
+import com.test.testtecnicbzpay.commons.data.dtos.Meta
 
-data class LoginDTO(
+data class LoginWithGoogleDTO(
     var origin: Int = GOOGLE_ORIGIN,
     var intentSender: IntentSenderRequest? = null,
     var meta: Meta = Meta()
@@ -11,8 +12,3 @@ data class LoginDTO(
         const val GOOGLE_ORIGIN = 11
     }
 }
-
-data class Meta(
-    var status: String = "",
-    var error: String = ""
-)

@@ -2,8 +2,8 @@ package com.test.testtecnicbzpay.features.login.presentation.states
 
 import androidx.activity.result.IntentSenderRequest
 
-data class LoggingState(
+data class LoggingWithEmailState(
     var isLoading: Boolean = false,
-    var state: IntentSenderRequest? = null,
+    var user: String? = null,
     var error: String? = null
 )

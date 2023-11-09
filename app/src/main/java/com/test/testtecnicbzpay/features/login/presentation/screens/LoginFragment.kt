@@ -1,19 +1,15 @@
 package com.test.testtecnicbzpay.features.login.presentation.screens
 
-import android.content.IntentSender
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.registerForActivityResult
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.auth.FirebaseAuth
@@ -23,9 +19,10 @@ import com.google.firebase.ktx.Firebase
 import com.test.testtecnicbzpay.R
 import com.test.testtecnicbzpay.commons.presentation.BaseFragment
 import com.test.testtecnicbzpay.databinding.FragmentLoginBinding
-import com.test.testtecnicbzpay.features.login.presentation.states.LoggingState
+import com.test.testtecnicbzpay.features.HostActivity
+import com.test.testtecnicbzpay.features.login.presentation.states.LoggingWithEmailState
+import com.test.testtecnicbzpay.features.login.presentation.states.LoggingWithGoogleState
 import com.test.testtecnicbzpay.features.login.presentation.viewmodels.LoginViewModel
-import kotlin.math.log
 
 class LoginFragment : BaseFragment() {
     private lateinit var oneTapClient: SignInClient
@@ -59,8 +56,11 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun setObservers() {
-        loginViewModel.loggingState.observe(viewLifecycleOwner) { loggingState ->
-            verifyLoginState(loggingState)
+        loginViewModel.loggingWithGoogleState.observe(viewLifecycleOwner) { loggingState ->
+            validateGoogleSignInStatus(loggingState)
+        }
+        loginViewModel.loggingWithEmailState.observe(viewLifecycleOwner) { loggingWithEmailStatus ->
+            validateEmailLoginStatus(loggingWithEmailStatus)
         }
     }
 
@@ -71,9 +71,10 @@ class LoginFragment : BaseFragment() {
         binding?.apply {
             loginButton.setOnClickListener {
                 if (emailInputText.text?.isNotEmpty() == true && passwordInputText.text?.isNotEmpty() == true)
-                    loginWithEmail(
+                    loginViewModel.logInWithEmail(
                         emailInputText.text.toString(),
-                        passwordInputText.text.toString()
+                        passwordInputText.text.toString(),
+                        requireActivity()
                     )
             }
             loginWithGoogleButton.setOnClickListener {
@@ -86,18 +87,41 @@ class LoginFragment : BaseFragment() {
         }
     }
 
-    private fun verifyLoginState(loggingState: LoggingState?) {
-        if (loggingState != null) {
-            if (loggingState.isLoading) {
+    private fun validateEmailLoginStatus(loggingWithEmailState: LoggingWithEmailState) {
+        if (loggingWithEmailState.isLoading) {
+            onLoadingDialog(
+                getString(R.string.wait_moment),
+                getString(R.string.sign_in_message)
+            )
+        }
+
+        loggingWithEmailState.user?.let {
+            dismissDialog()
+            goToLogging()
+        }
+        if (loggingWithEmailState.error?.isNotEmpty() == true) {
+            dismissDialog()
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.sign_in_error_message),
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+
+
+    private fun validateGoogleSignInStatus(loggingWithGoogleState: LoggingWithGoogleState?) {
+        if (loggingWithGoogleState != null) {
+            if (loggingWithGoogleState.isLoading) {
                 onLoadingDialog(
                     getString(R.string.wait_moment),
                     getString(R.string.sign_in_message)
                 )
             }
-            loggingState.state?.let {
-                loggingWithGoogleContract.launch(loggingState.state)
+            loggingWithGoogleState.state?.let {
+                loggingWithGoogleContract.launch(loggingWithGoogleState.state)
             }
-            if (loggingState.error?.isNotEmpty() == true) {
+            if (loggingWithGoogleState.error?.isNotEmpty() == true) {
                 Toast
                     .makeText(
                         requireContext(),
@@ -108,7 +132,6 @@ class LoginFragment : BaseFragment() {
             }
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -125,7 +148,7 @@ class LoginFragment : BaseFragment() {
                     auth.signInWithCredential(firebaseCredential)
                         .addOnCompleteListener(requireActivity()) { task ->
                             if (task.isSuccessful) {
-                                findNavController().navigate(R.id.action_loginFragment_to_hostFeaturesFragment)
+                                goToLogging()
                             } else {
                                 Toast.makeText(
                                     requireContext(),
@@ -146,34 +169,8 @@ class LoginFragment : BaseFragment() {
             }
         }
 
-    private fun loginWithEmail(email: String, password: String) {
-        onLoadingDialog(
-            getString(R.string.wait_moment),
-            getString(R.string.sign_in_message)
-        )
-
-        auth.signInWithEmailAndPassword(
-            email,
-            password
-        ).addOnCompleteListener(requireActivity()) { task ->
-            dismissDialog()
-
-            if (task.isSuccessful) {
-                Toast.makeText(
-                    requireContext(),
-                    auth.currentUser.toString(),
-                    Toast.LENGTH_LONG
-                ).show()
-
-                findNavController().navigate(R.id.action_loginFragment_to_hostFeaturesFragment)
-
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.sign_in_error_message),
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }
+    private fun goToLogging() {
+        requireActivity().finish()
+        startActivity(Intent(requireContext(), HostActivity::class.java))
     }
 }
