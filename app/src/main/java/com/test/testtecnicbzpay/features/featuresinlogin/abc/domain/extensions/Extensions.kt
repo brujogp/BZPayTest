@@ -4,5 +4,5 @@ import com.test.testtecnicbzpay.features.featuresinlogin.abc.data.database.entit
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.domain.dtos.StudentEntityDto
 
 fun StudentEntityDto.convertToEntity(): Student = Student(
-    name = studentName, subject = subject
+    name = studentName, subject = subject, age = studentAge
 )

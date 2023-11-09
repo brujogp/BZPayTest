@@ -39,6 +39,7 @@ class FormForNewStudentsFragment(
                 this@FormForNewStudentsFragment.onCompleteRegistrationStudent.invoke(
                     StudentEntityDto(
                         studentName = studentNameInputText.text.toString(),
+                        studentAge = studentAgeInputText.text.toString().toInt(),
                         subject = subjectInputText.text.toString()
                     )
                 )

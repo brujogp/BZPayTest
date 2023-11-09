@@ -24,4 +24,5 @@
     <string name="subject_hint">Asignatura</string>
     <string name="save_student_text">Registrar estudiante</string>
     <string name="new_student_registered">Estudiante registrado</string>
+    <string name="student_age">Edad del estudiante</string>
 </resources>

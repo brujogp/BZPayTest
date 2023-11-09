@@ -129,10 +129,12 @@ class ScreenStudentsFragment : BaseFragment() {
         }
 
         getStudentsState.studentsList?.let { result: List<StudentEntityDto> ->
+            dismissDialog()
             Log.d("TEST-T", result.toString())
         }
 
         if (getStudentsState.error?.isNotEmpty() == true) {
+            dismissDialog()
             Toast.makeText(
                 requireContext(),
                 getStudentsState.error,
