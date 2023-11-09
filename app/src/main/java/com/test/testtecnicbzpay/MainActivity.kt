@@ -1,4 +1,4 @@
-package com.test.testtecnicbzpay.main
+package com.test.testtecnicbzpay
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

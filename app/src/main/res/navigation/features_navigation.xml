@@ -3,11 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/features_navigation.xml"
-    app:startDestination="@id/hostFeaturesFragment2">
+    app:startDestination="@id/studentsListFragment">
 
     <fragment
-        android:id="@+id/hostFeaturesFragment2"
-        android:name="com.test.testtecnicbzpay.main.presentation.HostFeaturesFragment"
-        android:label="HostFeaturesFragment"
-        tools:layout="@layout/fragment_navigation_bar" />
+        android:id="@+id/studentsListFragment"
+        android:name="com.test.testtecnicbzpay.features.abc.presentation.StudentsListFragment"
+        android:label="StudentsListFragment"
+        tools:layout="@layout/fragment_students_list" />
+    <fragment
+        android:id="@+id/weatherFragment"
+        android:name="com.test.testtecnicbzpay.features.weather.presentation.WeatherFragment"
+        android:label="WeatherFragment"
+        tools:layout="@layout/fragment_weather" />
 </navigation>
