@@ -13,8 +13,7 @@ class GetStudentsUseCase @Inject constructor(
     private val studentsRepository: StudentsRepository
 ) {
     operator fun invoke() = flow {
-        emit("")
-        /*
+        emit(ResponseState.Loading())
         val response = studentsRepository.getStudentsList()
 
         if (response.meta.status == "SUCCESS") {
@@ -22,6 +21,5 @@ class GetStudentsUseCase @Inject constructor(
         } else if (response.meta.status == "ERROR") {
             emit(ResponseState.Error(response.meta.error))
         }
-        */
     }
 }

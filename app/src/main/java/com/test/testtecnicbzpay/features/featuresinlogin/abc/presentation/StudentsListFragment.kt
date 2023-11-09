@@ -11,11 +11,11 @@ import com.test.testtecnicbzpay.R
 import com.test.testtecnicbzpay.commons.presentation.BaseFragment
 import com.test.testtecnicbzpay.databinding.FragmentStudentsListBinding
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.states.StudentsState
-import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.viewmodels.StudentsViewModel
+import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.viewmodels.StudentViewModel
 
 class StudentsListFragment : BaseFragment() {
     private var binding: FragmentStudentsListBinding? = null
-    private val studentsViewModel by activityViewModels<StudentsViewModel>()
+    private val studentsViewModel by activityViewModels<StudentViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,10 +38,7 @@ class StudentsListFragment : BaseFragment() {
     }
 
     private fun getStudentsList() {
-        this.studentsViewModel.getStudentsList()
-        this.studentsViewModel.getStudentsState.observe(viewLifecycleOwner) {
-            validateStudentsStatus(it)
-        }
+
     }
 
     private fun validateStudentsStatus(studentsState: StudentsState) {

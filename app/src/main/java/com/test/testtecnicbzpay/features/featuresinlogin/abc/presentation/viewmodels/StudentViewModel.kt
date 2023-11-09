@@ -11,17 +11,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+
 @HiltViewModel
-class StudentsViewModel @Inject constructor(
-    private val getStudentsUseCase: GetStudentsUseCase
-) : ViewModel() {
+class StudentViewModel @Inject constructor(private val getStudentsUseCase: GetStudentsUseCase) :
+    ViewModel() {
 
     private val _getStudentsState = MutableLiveData<StudentsState>()
     val getStudentsState: LiveData<StudentsState> = _getStudentsState
 
     fun getStudentsList() {
         viewModelScope.launch {
-            /*
             getStudentsUseCase.invoke().collect { responseStudentsState ->
                 when (responseStudentsState) {
                     is ResponseState.Loading -> {
@@ -39,7 +38,6 @@ class StudentsViewModel @Inject constructor(
                     }
                 }
             }
-            */
         }
     }
 }

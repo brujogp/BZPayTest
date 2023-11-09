@@ -2,6 +2,7 @@ package com.test.testtecnicbzpay.di.modules
 
 import android.content.Context
 import androidx.room.Room
+import com.test.testtecnicbzpay.features.featuresinlogin.abc.data.database.MainDataBase
 // import com.test.testtecnicbzpay.features.featuresinlogin.abc.data.database.MainDataBase
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.data.database.daos.StudentDto
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.data.repository.StudentsRepository
@@ -20,7 +21,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object StudentsModule {
 
-    /*
     @Provides
     @Singleton
     fun provideStudentDatabase(@ApplicationContext appContext: Context) =
@@ -37,11 +37,4 @@ object StudentsModule {
     @Singleton
     fun provideStudentRepository(dao: StudentDto): StudentsRepository =
         StudentsRepositoryImpl(dao)
-     */
-
-    @Provides
-    @Singleton
-    fun provideStudentRepository(): StudentsRepository {
-        return StudentsRepositoryImpl()
-    }
 }
