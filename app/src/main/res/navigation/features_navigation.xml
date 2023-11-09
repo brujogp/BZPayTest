@@ -9,7 +9,7 @@
         android:id="@+id/studentsListFragment"
         android:name="com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.fragments.ScreenStudentsFragment"
         android:label="StudentsListFragment"
-        tools:layout="@layout/fragment_students_list" />
+        tools:layout="@layout/fragment_students_screen" />
     <fragment
         android:id="@+id/weatherFragment"
         android:name="com.test.testtecnicbzpay.features.featuresinlogin.weather.presentation.WeatherFragment"
