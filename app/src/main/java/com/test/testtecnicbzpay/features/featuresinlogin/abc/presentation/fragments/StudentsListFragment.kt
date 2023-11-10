@@ -1,12 +1,18 @@
 package com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.fragments
 
+import android.R.attr
+import android.graphics.Canvas
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.test.testtecnicbzpay.R
 import com.test.testtecnicbzpay.commons.presentation.BaseFragment
 import com.test.testtecnicbzpay.databinding.FragmentStudentsListBinding
@@ -15,7 +21,9 @@ import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.adapte
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.states.GetStudentsState
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.viewmodels.StudentViewModel
 
+
 class StudentsListFragment : BaseFragment() {
+    private lateinit var studentsList: List<StudentEntityDto>
     private var binding: FragmentStudentsListBinding? = null
     private val studentsViewModel by activityViewModels<StudentViewModel>()
 
@@ -57,6 +65,7 @@ class StudentsListFragment : BaseFragment() {
 
         getStudentsState.studentsList?.let { result: List<StudentEntityDto> ->
             dismissDialog()
+            this.studentsList = result
             showStudentsList(result)
         }
 
@@ -79,11 +88,35 @@ class StudentsListFragment : BaseFragment() {
             val adapter = StudentsListAdapter()
             adapter.setStudents(students)
             this.studentsListRecyclerView.adapter = adapter
+
             this.studentsListRecyclerView.layoutManager =
                 LinearLayoutManager(
                     requireContext(), LinearLayoutManager.VERTICAL, false
                 )
+
+            configSwipeRightGesture(studentsListRecyclerView)
         }
+    }
+
+    private fun configSwipeRightGesture(studentsListRecyclerView: RecyclerView) {
+        val itemTouchHelper =
+            ItemTouchHelper(object : SwipeHelper(studentsListRecyclerView) {
+                override fun instantiateUnderlayButton(position: Int): List<UnderlayButton> {
+                    val deleteButton = deleteButton(position)
+                    val editButton = editButton(position)
+                    return listOf(deleteButton, editButton)
+                }
+            }
+            )
+
+        itemTouchHelper.attachToRecyclerView(studentsListRecyclerView)
+
+        studentsListRecyclerView.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+            )
+        )
     }
 
 
@@ -94,5 +127,38 @@ class StudentsListFragment : BaseFragment() {
         super.onDestroyView()
         binding = null
     }
+
+    private fun deleteButton(position: Int): SwipeHelper.UnderlayButton {
+        return SwipeHelper.UnderlayButton(
+            requireContext(),
+            "Eliminar",
+            14.0f,
+            android.R.color.holo_red_light,
+            object : SwipeHelper.UnderlayButtonClickListener {
+                override fun onClick() {
+                    deleteStudent(position)
+                }
+            })
+    }
+
+    private fun deleteStudent(position: Int) {
+    }
+
+    private fun editButton(position: Int): SwipeHelper.UnderlayButton {
+        return SwipeHelper.UnderlayButton(
+            requireContext(),
+            "Editar",
+            14.0f,
+            android.R.color.holo_green_dark,
+            object : SwipeHelper.UnderlayButtonClickListener {
+                override fun onClick() {
+                    editStudent(position)
+                }
+            })
+    }
+
+    private fun editStudent(position: Int) {
+    }
+
 }
 

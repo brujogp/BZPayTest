@@ -2,6 +2,7 @@ package com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.adapt
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.test.testtecnicbzpay.databinding.LayoutStudentHolderBinding
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.domain.dtos.StudentEntityDto
@@ -38,5 +39,6 @@ class StudentsListAdapter : RecyclerView.Adapter<StudentsListAdapter.Holder>() {
         }
     }
 
-    class Holder(val view: LayoutStudentHolderBinding) : RecyclerView.ViewHolder(view.root)
+    class Holder(val view: LayoutStudentHolderBinding) :
+        RecyclerView.ViewHolder(view.root)
 }

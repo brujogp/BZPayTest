@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.textfield.TextInputEditText
 import com.test.testtecnicbzpay.commons.presentation.BaseFragment
 import com.test.testtecnicbzpay.databinding.FragmentFormForNewStudentsBinding
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.domain.dtos.StudentEntityDto
@@ -43,12 +44,22 @@ class FormForNewStudentsFragment(
                         subject = subjectInputText.text.toString()
                     )
                 )
-
-                studentNameInputText.text?.clear()
-                studentAgeInputText.text?.clear()
-                subjectInputText.text?.clear()
+                clearForm(studentNameInputText, studentAgeInputText, subjectInputText)
             }
         }
+    }
+
+    private fun clearForm(
+        studentNameInputText: TextInputEditText,
+        studentAgeInputText: TextInputEditText,
+        subjectInputText: TextInputEditText
+    ) {
+        studentNameInputText.text?.clear()
+        studentNameInputText.clearFocus()
+        studentAgeInputText.text?.clear()
+        studentAgeInputText.clearFocus()
+        subjectInputText.text?.clear()
+        subjectInputText.clearFocus()
     }
 
     override fun onDestroyView() {
