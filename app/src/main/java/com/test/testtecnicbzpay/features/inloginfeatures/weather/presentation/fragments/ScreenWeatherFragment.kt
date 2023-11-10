@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import com.bumptech.glide.Glide
 import com.test.testtecnicbzpay.R
 import com.test.testtecnicbzpay.commons.presentation.BaseFragment
 import com.test.testtecnicbzpay.databinding.FragmentWeatherBinding
@@ -72,6 +73,8 @@ class ScreenWeatherFragment : BaseFragment(), LocationListener {
                 this
             )
         }
+
+        loading()
     }
 
     override fun onLocationChanged(location: Location) {
@@ -85,12 +88,16 @@ class ScreenWeatherFragment : BaseFragment(), LocationListener {
         }
     }
 
+    private fun loading() {
+        onLoadingDialog(
+            getString(R.string.wait_moment),
+            getString(R.string.getting_weather_info)
+        )
+    }
+
     private fun validateWeatherStatus(weatherState: WeatherState) {
         if (weatherState.isLoading) {
-            onLoadingDialog(
-                getString(R.string.wait_moment),
-                getString(R.string.sign_in_message)
-            )
+            binding?.container?.visibility = View.VISIBLE
         }
 
         weatherState.data?.let {
@@ -100,6 +107,7 @@ class ScreenWeatherFragment : BaseFragment(), LocationListener {
 
         if (weatherState.error?.isNotEmpty() == true) {
             dismissDialog()
+            binding?.container?.visibility = View.VISIBLE
             Toast.makeText(
                 requireContext(),
                 getString(R.string.cannot_get_weather_info),
@@ -110,11 +118,20 @@ class ScreenWeatherFragment : BaseFragment(), LocationListener {
 
     private fun setWeatherView(weatherInfo: WeatherDto) {
         binding?.apply {
+
+            container.visibility = View.VISIBLE
+
             weatherStateTextView.text = weatherInfo.weatherState
             weatherLocationTextView.text = weatherInfo.region
             weatherDateTextView.text = weatherInfo.date
             weatherTemperatureDegreesCentigradeTextView.text = weatherInfo.tempC.plus("°")
-            progressBar.visibility = View.GONE
+
+            Glide
+                .with(this@ScreenWeatherFragment)
+                .load("https:".plus(weatherInfo.urlIcon))
+                .centerCrop()
+                .into(weatherImage);
+
         }
     }
 }

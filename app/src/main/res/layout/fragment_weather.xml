@@ -6,98 +6,100 @@
     android:layout_height="match_parent"
     android:background="@color/primaryColor">
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/weather_image"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:layout_marginTop="30dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/primaryColor"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/secondaryColor"
-        tools:src="@drawable/ic_separator" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/weather_state_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
-        android:textColor="@color/secondaryColor"
-        android:textSize="35sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/weather_image"
-        tools:text="Lluvioso" />
+        <ImageView
+            android:id="@+id/weather_image"
+            android:layout_width="180dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/secondaryColor"
+            tools:src="@drawable/ic_separator" />
 
-    <ImageView
-        android:id="@+id/weather_location_icon_image_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="60dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/weather_state_text_view"
-        app:tint="@color/secondaryColor"
-        android:src="@drawable/ic_location" />
+        <TextView
+            android:id="@+id/weather_state_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/secondaryColor"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/weather_image"
+            tools:text="Lluvioso" />
 
-    <TextView
-        android:id="@+id/weather_location_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:textColor="@color/secondaryColor"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="@id/weather_location_icon_image_view"
-        app:layout_constraintStart_toEndOf="@id/weather_location_icon_image_view"
-        app:layout_constraintTop_toTopOf="@id/weather_location_icon_image_view"
-        tools:text="Estado de México" />
+        <ImageView
+            android:id="@+id/weather_location_icon_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="60dp"
+            android:src="@drawable/ic_location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/weather_state_text_view"
+            app:tint="@color/secondaryColor" />
+
+        <TextView
+            android:id="@+id/weather_location_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/secondaryColor"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="@id/weather_location_icon_image_view"
+            app:layout_constraintStart_toEndOf="@id/weather_location_icon_image_view"
+            app:layout_constraintTop_toTopOf="@id/weather_location_icon_image_view"
+            tools:text="Estado de México" />
 
 
-    <ImageView
-        android:id="@+id/weather_calendar_icon_image_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        app:layout_constraintEnd_toEndOf="@id/weather_location_icon_image_view"
-        app:layout_constraintStart_toStartOf="@id/weather_location_icon_image_view"
-        app:layout_constraintTop_toBottomOf="@id/weather_location_icon_image_view"
-        app:tint="@color/secondaryColor"
-        android:src="@drawable/ic_calendar" />
+        <ImageView
+            android:id="@+id/weather_calendar_icon_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_calendar"
+            app:layout_constraintEnd_toEndOf="@id/weather_location_icon_image_view"
+            app:layout_constraintStart_toStartOf="@id/weather_location_icon_image_view"
+            app:layout_constraintTop_toBottomOf="@id/weather_location_icon_image_view"
+            app:tint="@color/secondaryColor" />
 
-    <TextView
-        android:id="@+id/weather_date_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:textColor="@color/secondaryColor"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="@id/weather_calendar_icon_image_view"
-        app:layout_constraintStart_toEndOf="@id/weather_calendar_icon_image_view"
-        app:layout_constraintTop_toTopOf="@id/weather_calendar_icon_image_view"
-        tools:text="Martes" />
+        <TextView
+            android:id="@+id/weather_date_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/secondaryColor"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="@id/weather_calendar_icon_image_view"
+            app:layout_constraintStart_toEndOf="@id/weather_calendar_icon_image_view"
+            app:layout_constraintTop_toTopOf="@id/weather_calendar_icon_image_view"
+            tools:text="Martes" />
 
-    <TextView
-        android:id="@+id/weather_temperature_degrees_centigrade_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:textColor="@color/secondaryColor"
-        android:textSize="85sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/weather_calendar_icon_image_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/weather_location_icon_image_view"
-        tools:text="20°" />
+        <TextView
+            android:id="@+id/weather_temperature_degrees_centigrade_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:textColor="@color/secondaryColor"
+            android:textSize="85sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/weather_calendar_icon_image_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/weather_location_icon_image_view"
+            tools:text="20°" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
