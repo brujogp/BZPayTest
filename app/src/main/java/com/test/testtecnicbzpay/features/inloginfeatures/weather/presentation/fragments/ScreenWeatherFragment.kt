@@ -91,7 +91,6 @@ class ScreenWeatherFragment : BaseFragment(), LocationListener {
         }
     }
 
-
     private fun loading() {
         onLoadingDialog(
             getString(R.string.wait_moment),
