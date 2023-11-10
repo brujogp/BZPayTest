@@ -43,6 +43,10 @@ class FormForNewStudentsFragment(
                         subject = subjectInputText.text.toString()
                     )
                 )
+
+                studentNameInputText.text?.clear()
+                studentAgeInputText.text?.clear()
+                subjectInputText.text?.clear()
             }
         }
     }
