@@ -79,7 +79,10 @@ class ScreenWeatherFragment : BaseFragment(), LocationListener {
 
     override fun onLocationChanged(location: Location) {
         this.location = location
+        requestWeather()
+    }
 
+    private fun requestWeather() {
         weatherViewModel.getWeatherAction(
             location.latitude.toString().plus(",").plus(location.longitude.toString())
         )
@@ -87,6 +90,7 @@ class ScreenWeatherFragment : BaseFragment(), LocationListener {
             validateWeatherStatus(it)
         }
     }
+
 
     private fun loading() {
         onLoadingDialog(
@@ -96,13 +100,10 @@ class ScreenWeatherFragment : BaseFragment(), LocationListener {
     }
 
     private fun validateWeatherStatus(weatherState: WeatherState) {
-        if (weatherState.isLoading) {
-            binding?.container?.visibility = View.VISIBLE
-        }
-
         weatherState.data?.let {
             dismissDialog()
             setWeatherView(it)
+            weatherViewModel.getWeather.removeObservers(viewLifecycleOwner)
         }
 
         if (weatherState.error?.isNotEmpty() == true) {
@@ -113,6 +114,7 @@ class ScreenWeatherFragment : BaseFragment(), LocationListener {
                 getString(R.string.cannot_get_weather_info),
                 Toast.LENGTH_LONG
             ).show()
+            weatherViewModel.getWeather.removeObservers(viewLifecycleOwner)
         }
     }
 
@@ -132,6 +134,11 @@ class ScreenWeatherFragment : BaseFragment(), LocationListener {
                 .centerCrop()
                 .into(weatherImage);
 
+
+            updateWeatherButton.setOnClickListener {
+                requestWeather()
+                loading()
+            }
         }
     }
 }

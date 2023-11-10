@@ -13,7 +13,7 @@ data class CurrentResponse(
 
 data class Current(
     @SerializedName("last_updated_epoch")
-    val lastUpdatedEpoch: Long? = null,
+    val lastUpdatedEpoch: Double? = null,
 
     @SerializedName("last_updated")
     val lastUpdated: String? = null,
@@ -63,12 +63,12 @@ data class Current(
     val feelslikeF: Double? = null,
 
     @SerializedName("vis_km")
-    val visKM: Long? = null,
+    val visKM: Double? = null,
 
     @SerializedName("vis_miles")
-    val visMiles: Long? = null,
+    val visMiles: Double? = null,
 
-    val uv: Long? = null,
+    val uv: Double? = null,
 
     @SerializedName("gust_mph")
     val gustMph: Double? = null,
@@ -83,7 +83,7 @@ data class Current(
 data class Condition(
     val text: String? = null,
     val icon: String? = null,
-    val code: Long? = null
+    val code: Double? = null
 )
 
 data class Location(
@@ -97,7 +97,7 @@ data class Location(
     val tzID: String? = null,
 
     @SerializedName("localtime_epoch")
-    val localtimeEpoch: Long? = null,
+    val localtimeEpoch: Double? = null,
 
     val localtime: String? = null
 )
