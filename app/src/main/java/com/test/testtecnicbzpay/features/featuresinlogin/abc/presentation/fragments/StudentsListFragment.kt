@@ -1,13 +1,10 @@
 package com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.fragments
 
-import android.R.attr
-import android.graphics.Canvas
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -22,7 +19,8 @@ import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.states
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.viewmodels.StudentViewModel
 
 
-class StudentsListFragment : BaseFragment() {
+class StudentsListFragment(private val onEditStudent: (student: StudentEntityDto) -> Unit) :
+    BaseFragment() {
     private lateinit var studentsList: List<StudentEntityDto>
     private var binding: FragmentStudentsListBinding? = null
     private val studentsViewModel by activityViewModels<StudentViewModel>()
@@ -141,8 +139,6 @@ class StudentsListFragment : BaseFragment() {
             })
     }
 
-    private fun deleteStudent(position: Int) {
-    }
 
     private fun editButton(position: Int): SwipeHelper.UnderlayButton {
         return SwipeHelper.UnderlayButton(
@@ -158,7 +154,10 @@ class StudentsListFragment : BaseFragment() {
     }
 
     private fun editStudent(position: Int) {
+        onEditStudent.invoke(studentsList[position])
     }
 
+    private fun deleteStudent(position: Int) {
+    }
 }
 

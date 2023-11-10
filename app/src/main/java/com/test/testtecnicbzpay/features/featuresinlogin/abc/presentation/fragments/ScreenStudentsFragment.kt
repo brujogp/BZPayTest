@@ -11,7 +11,7 @@ import com.test.testtecnicbzpay.R
 import com.test.testtecnicbzpay.commons.presentation.BaseFragment
 import com.test.testtecnicbzpay.databinding.FragmentStudentsScreenBinding
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.domain.dtos.StudentEntityDto
-import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.states.RegisterNewStudentState
+import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.states.RegisterStudentState
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.viewmodels.StudentViewModel
 
 class ScreenStudentsFragment : BaseFragment() {
@@ -44,14 +44,28 @@ class ScreenStudentsFragment : BaseFragment() {
     private fun configBinding() {
         binding?.apply {
             this@ScreenStudentsFragment.formStudentsFragment =
-                FormForNewStudentsFragment { newStudent: StudentEntityDto ->
-                    registerNewStudent(newStudent)
-                }
+                FormForNewStudentsFragment(
+                    onCompleteRegistrationStudent = { newStudent: StudentEntityDto ->
+                        registerNewStudent(newStudent)
+                    },
+                    onModifyStudent = { studentToModify: StudentEntityDto ->
+                        modifyStudent(studentToModify)
+                    }
+                )
 
             this@ScreenStudentsFragment.studentsListFragment =
-                StudentsListFragment()
+                StudentsListFragment(onEditStudent = { student ->
+                    formStudentsFragment.editStudent(student)
+                })
 
             configFragments(formForNewStudentsContainer, studentsListContainer)
+        }
+    }
+
+    private fun modifyStudent(studentToModify: StudentEntityDto) {
+        studentsViewModel.modifyStudent(studentToModify)
+        studentsViewModel.modifyStudent.observe(viewLifecycleOwner) {
+            validateRegisterStudentState(it)
         }
     }
 
@@ -79,18 +93,18 @@ class ScreenStudentsFragment : BaseFragment() {
     private fun registerNewStudent(newStudent: StudentEntityDto) {
         studentsViewModel.registerNewStudent(newStudent)
         studentsViewModel.registerNewStudent.observe(viewLifecycleOwner) {
-            validateRegisterNewStudentState(it)
+            validateRegisterStudentState(it)
         }
     }
 
-    private fun validateRegisterNewStudentState(registerNewStudentState: RegisterNewStudentState) {
-        if (registerNewStudentState.isLoading) {
+    private fun validateRegisterStudentState(registerStudentState: RegisterStudentState) {
+        if (registerStudentState.isLoading) {
             onLoadingDialog(
                 getString(R.string.wait_moment),
                 getString(R.string.get_students_message)
             )
         }
-        if (registerNewStudentState.isSuccess) {
+        if (registerStudentState.isSuccess) {
             dismissDialog()
 
             this.studentsListFragment.getStudents()
@@ -101,11 +115,11 @@ class ScreenStudentsFragment : BaseFragment() {
                 Toast.LENGTH_LONG
             ).show()
         }
-        if (registerNewStudentState.error?.isNotEmpty() == true) {
+        if (registerStudentState.error?.isNotEmpty() == true) {
             dismissDialog()
             Toast.makeText(
                 requireContext(),
-                registerNewStudentState.error,
+                registerStudentState.error,
                 Toast.LENGTH_LONG
             ).show()
         }

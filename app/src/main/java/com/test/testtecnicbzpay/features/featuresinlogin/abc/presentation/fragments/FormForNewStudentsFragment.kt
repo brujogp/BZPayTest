@@ -10,8 +10,10 @@ import com.test.testtecnicbzpay.databinding.FragmentFormForNewStudentsBinding
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.domain.dtos.StudentEntityDto
 
 class FormForNewStudentsFragment(
-    private val onCompleteRegistrationStudent: (StudentEntityDto) -> Unit
+    private val onCompleteRegistrationStudent: (StudentEntityDto) -> Unit,
+    private val onModifyStudent: (StudentEntityDto) -> Unit
 ) : BaseFragment() {
+    private var studentToModify: StudentEntityDto? = null
     private var binding: FragmentFormForNewStudentsBinding? = null
 
     override fun onCreateView(
@@ -37,16 +39,48 @@ class FormForNewStudentsFragment(
     private fun configBinding() {
         this.binding?.apply {
             saveStudentButton.setOnClickListener {
-                this@FormForNewStudentsFragment.onCompleteRegistrationStudent.invoke(
-                    StudentEntityDto(
-                        studentName = studentNameInputText.text.toString(),
-                        studentAge = studentAgeInputText.text.toString().toInt(),
-                        subject = subjectInputText.text.toString()
-                    )
-                )
+                if (studentToModify != null) {
+                    modifyStudent(studentNameInputText, studentAgeInputText, subjectInputText)
+                } else {
+                    registerStudent(studentNameInputText, studentAgeInputText, subjectInputText)
+                }
                 clearForm(studentNameInputText, studentAgeInputText, subjectInputText)
+
+                saveStudentButton.text = "Registrar estudiante"
+                studentToModify = null
             }
         }
+    }
+
+    private fun modifyStudent(
+        studentNameInputText: TextInputEditText,
+        studentAgeInputText: TextInputEditText,
+        subjectInputText: TextInputEditText
+    ) {
+        studentToModify?.let {
+            this.onModifyStudent.invoke(
+                StudentEntityDto(
+                    id = it.id,
+                    studentName = studentNameInputText.text.toString(),
+                    studentAge = studentAgeInputText.text.toString().toInt(),
+                    subject = subjectInputText.text.toString()
+                )
+            )
+        }
+    }
+
+    private fun registerStudent(
+        studentNameInputText: TextInputEditText,
+        studentAgeInputText: TextInputEditText,
+        subjectInputText: TextInputEditText
+    ) {
+        this.onCompleteRegistrationStudent.invoke(
+            StudentEntityDto(
+                studentName = studentNameInputText.text.toString(),
+                studentAge = studentAgeInputText.text.toString().toInt(),
+                subject = subjectInputText.text.toString()
+            )
+        )
     }
 
     private fun clearForm(
@@ -65,5 +99,15 @@ class FormForNewStudentsFragment(
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+    }
+
+    fun editStudent(student: StudentEntityDto) {
+        this.studentToModify = student
+        this.binding?.apply {
+            studentNameInputText.setText(student.studentName)
+            studentAgeInputText.setText(student.studentAge.toString())
+            subjectInputText.setText(student.subject)
+            saveStudentButton.text = "Modificar estudiante"
+        }
     }
 }

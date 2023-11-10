@@ -6,3 +6,7 @@ import com.test.testtecnicbzpay.features.featuresinlogin.abc.domain.dtos.Student
 fun StudentEntityDto.convertToEntity(): Student = Student(
     name = studentName, subject = subject, age = studentAge
 )
+
+fun StudentEntityDto.convertToEntityWithId(): Student = Student(
+    uid = id!!, name = studentName, subject = subject, age = studentAge
+)

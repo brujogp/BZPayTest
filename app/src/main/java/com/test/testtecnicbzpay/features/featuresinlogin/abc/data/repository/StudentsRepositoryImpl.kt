@@ -2,11 +2,11 @@ package com.test.testtecnicbzpay.features.featuresinlogin.abc.data.repository
 
 import com.test.testtecnicbzpay.commons.data.dtos.Meta
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.data.database.daos.StudentDto
-import com.test.testtecnicbzpay.features.featuresinlogin.abc.data.database.entities.Student
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.data.dtos.GetStudentsDto
-import com.test.testtecnicbzpay.features.featuresinlogin.abc.data.dtos.RegisterNewStudentDto
+import com.test.testtecnicbzpay.features.featuresinlogin.abc.data.dtos.RegisterStudentDto
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.domain.dtos.StudentEntityDto
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.domain.extensions.convertToEntity
+import com.test.testtecnicbzpay.features.featuresinlogin.abc.domain.extensions.convertToEntityWithId
 import javax.inject.Inject
 
 class StudentsRepositoryImpl @Inject constructor(
@@ -24,13 +24,28 @@ class StudentsRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun registerNewStudent(newStudent: StudentEntityDto): RegisterNewStudentDto {
+    override suspend fun registerNewStudent(newStudent: StudentEntityDto): RegisterStudentDto {
         return try {
             this.dao.insert(newStudent.convertToEntity())
 
-            RegisterNewStudentDto(Meta(status = "SUCCESS"))
+            RegisterStudentDto(Meta(status = "SUCCESS"))
         } catch (e: Exception) {
-            RegisterNewStudentDto(
+            RegisterStudentDto(
+                Meta(
+                    status = "ERROR",
+                    error = "Error al crear estudiante"
+                )
+            )
+        }
+    }
+
+    override suspend fun modifyStudent(studentToModify: StudentEntityDto): RegisterStudentDto {
+        return try {
+            this.dao.update(studentToModify.convertToEntityWithId())
+
+            RegisterStudentDto(Meta(status = "SUCCESS"))
+        } catch (e: Exception) {
+            RegisterStudentDto(
                 Meta(
                     status = "ERROR",
                     error = "Error al crear estudiante"
