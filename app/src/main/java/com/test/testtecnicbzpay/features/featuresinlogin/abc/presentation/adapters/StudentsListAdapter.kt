@@ -8,7 +8,7 @@ import com.test.testtecnicbzpay.databinding.LayoutStudentHolderBinding
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.domain.dtos.StudentEntityDto
 
 class StudentsListAdapter : RecyclerView.Adapter<StudentsListAdapter.Holder>() {
-    private lateinit var students: List<StudentEntityDto>
+    private var students: List<StudentEntityDto> = arrayListOf()
 
     fun setStudents(newStudents: List<StudentEntityDto>) {
         this.students = newStudents

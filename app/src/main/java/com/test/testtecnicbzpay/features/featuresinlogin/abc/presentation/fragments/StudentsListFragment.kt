@@ -21,6 +21,7 @@ import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.viewmo
 
 class StudentsListFragment(private val onEditStudent: (student: StudentEntityDto) -> Unit) :
     BaseFragment() {
+    private lateinit var adapter: StudentsListAdapter
     private lateinit var studentsList: List<StudentEntityDto>
     private var binding: FragmentStudentsListBinding? = null
     private val studentsViewModel by activityViewModels<StudentViewModel>()
@@ -39,7 +40,22 @@ class StudentsListFragment(private val onEditStudent: (student: StudentEntityDto
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        configBinding()
         getStudentsList()
+    }
+
+    private fun configBinding() {
+        this.binding?.apply {
+            adapter = StudentsListAdapter()
+            this.studentsListRecyclerView.adapter = adapter
+
+            this.studentsListRecyclerView.layoutManager =
+                LinearLayoutManager(
+                    requireContext(), LinearLayoutManager.VERTICAL, false
+                )
+
+            configSwipeRightGesture(studentsListRecyclerView)
+        }
     }
 
     fun getStudents() {
@@ -63,8 +79,7 @@ class StudentsListFragment(private val onEditStudent: (student: StudentEntityDto
 
         getStudentsState.studentsList?.let { result: List<StudentEntityDto> ->
             dismissDialog()
-            this.studentsList = result
-            showStudentsList(result)
+            setStudentsList(result)
         }
 
         if (getStudentsState.error?.isNotEmpty() == true) {
@@ -77,24 +92,11 @@ class StudentsListFragment(private val onEditStudent: (student: StudentEntityDto
         }
     }
 
-    private fun showStudentsList(students: List<StudentEntityDto>) {
-        configBinding(students)
+    private fun setStudentsList(result: List<StudentEntityDto>) {
+        this.studentsList = result
+        adapter.setStudents(this.studentsList)
     }
 
-    private fun configBinding(students: List<StudentEntityDto>) {
-        this.binding?.apply {
-            val adapter = StudentsListAdapter()
-            adapter.setStudents(students)
-            this.studentsListRecyclerView.adapter = adapter
-
-            this.studentsListRecyclerView.layoutManager =
-                LinearLayoutManager(
-                    requireContext(), LinearLayoutManager.VERTICAL, false
-                )
-
-            configSwipeRightGesture(studentsListRecyclerView)
-        }
-    }
 
     private fun configSwipeRightGesture(studentsListRecyclerView: RecyclerView) {
         val itemTouchHelper =
@@ -116,7 +118,6 @@ class StudentsListFragment(private val onEditStudent: (student: StudentEntityDto
             )
         )
     }
-
 
     private fun setBinding(inflate: LayoutInflater, container: ViewGroup?) =
         FragmentStudentsListBinding.inflate(inflate, container, false)
