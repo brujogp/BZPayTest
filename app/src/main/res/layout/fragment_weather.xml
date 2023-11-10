@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     android:background="@color/primaryColor">
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/weather_image"
         android:layout_width="180dp"
@@ -35,11 +45,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/weather_state_text_view"
         app:tint="@color/secondaryColor"
-        tools:src="@drawable/ic_location" />
+        android:src="@drawable/ic_location" />
 
     <TextView
         android:id="@+id/weather_location_text_view"
@@ -63,7 +73,7 @@
         app:layout_constraintStart_toStartOf="@id/weather_location_icon_image_view"
         app:layout_constraintTop_toBottomOf="@id/weather_location_icon_image_view"
         app:tint="@color/secondaryColor"
-        tools:src="@drawable/ic_calendar" />
+        android:src="@drawable/ic_calendar" />
 
     <TextView
         android:id="@+id/weather_date_text_view"

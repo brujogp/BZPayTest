@@ -1,6 +1,7 @@
 package com.test.testtecnicbzpay.features.inloginfeatures.weather.data.web_client.responses
 
 import com.google.gson.annotations.SerializedName
+import com.test.testtecnicbzpay.features.inloginfeatures.weather.domain.dtos.WeatherDto
 import kotlinx.serialization.*
 import kotlinx.serialization.SerialName
 
@@ -14,68 +15,68 @@ data class Current(
     @SerializedName("last_updated_epoch")
     val lastUpdatedEpoch: Long? = null,
 
-    @SerialName("last_updated")
+    @SerializedName("last_updated")
     val lastUpdated: String? = null,
 
-    @SerialName("temp_c")
+    @SerializedName("temp_c")
     val tempC: Double? = null,
 
-    @SerialName("temp_f")
+    @SerializedName("temp_f")
     val tempF: Double? = null,
 
-    @SerialName("is_day")
-    val isDay: Long? = null,
+    @SerializedName("is_day")
+    val isDay: Double? = null,
 
     val condition: Condition? = null,
 
-    @SerialName("wind_mph")
+    @SerializedName("wind_mph")
     val windMph: Double? = null,
 
-    @SerialName("wind_kph")
+    @SerializedName("wind_kph")
     val windKph: Double? = null,
 
-    @SerialName("wind_degree")
-    val windDegree: Long? = null,
+    @SerializedName("wind_degree")
+    val windDegree: Double? = null,
 
-    @SerialName("wind_dir")
+    @SerializedName("wind_dir")
     val windDir: String? = null,
 
-    @SerialName("pressure_mb")
-    val pressureMB: Long? = null,
+    @SerializedName("pressure_mb")
+    val pressureMB: Double? = null,
 
-    @SerialName("pressure_in")
+    @SerializedName("pressure_in")
     val pressureIn: Double? = null,
 
-    @SerialName("precip_mm")
-    val precipMm: Long? = null,
+    @SerializedName("precip_mm")
+    val precipMm: Double? = null,
 
-    @SerialName("precip_in")
-    val precipIn: Long? = null,
+    @SerializedName("precip_in")
+    val precipIn: Double? = null,
 
-    val humidity: Long? = null,
-    val cloud: Long? = null,
+    val humidity: Double? = null,
+    val cloud: Double? = null,
 
-    @SerialName("feelslike_c")
-    val feelslikeC: Long? = null,
+    @SerializedName("feelslike_c")
+    val feelslikeC: Double? = null,
 
-    @SerialName("feelslike_f")
+    @SerializedName("feelslike_f")
     val feelslikeF: Double? = null,
 
-    @SerialName("vis_km")
+    @SerializedName("vis_km")
     val visKM: Long? = null,
 
-    @SerialName("vis_miles")
+    @SerializedName("vis_miles")
     val visMiles: Long? = null,
 
     val uv: Long? = null,
 
-    @SerialName("gust_mph")
+    @SerializedName("gust_mph")
     val gustMph: Double? = null,
 
-    @SerialName("gust_kph")
+    @SerializedName("gust_kph")
     val gustKph: Double? = null,
 
-    @SerialName("air_quality")
+    @SerializedName("air_quality")
     val airQuality: Map<String, Double>? = null
 )
 
@@ -92,11 +93,21 @@ data class Location(
     val lat: Double? = null,
     val lon: Double? = null,
 
-    @SerialName("tz_id")
+    @SerializedName("tz_id")
     val tzID: String? = null,
 
-    @SerialName("localtime_epoch")
+    @SerializedName("localtime_epoch")
     val localtimeEpoch: Long? = null,
 
     val localtime: String? = null
 )
+
+fun CurrentResponse.convertToDto(): WeatherDto {
+    return WeatherDto(
+        region = location!!.region!!,
+        date = location.name!!,
+        tempC = current!!.tempC!!.toString().substring(0, 2),
+        weatherState = current.condition!!.text!!,
+        urlIcon = current.condition.icon!!
+    )
+}

@@ -7,19 +7,23 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import com.test.testtecnicbzpay.R
 import com.test.testtecnicbzpay.commons.presentation.BaseFragment
 import com.test.testtecnicbzpay.databinding.FragmentWeatherBinding
 import com.test.testtecnicbzpay.features.inloginfeatures.HostActivity
+import com.test.testtecnicbzpay.features.inloginfeatures.weather.domain.dtos.WeatherDto
+import com.test.testtecnicbzpay.features.inloginfeatures.weather.presentation.states.WeatherState
 import com.test.testtecnicbzpay.features.inloginfeatures.weather.presentation.viewmodels.WeatherViewModel
 
 
 class ScreenWeatherFragment : BaseFragment(), LocationListener {
+    private lateinit var location: Location
     private var binding: FragmentWeatherBinding? = null
     private lateinit var locationManager: LocationManager
     private val weatherViewModel by activityViewModels<WeatherViewModel>()
@@ -71,8 +75,46 @@ class ScreenWeatherFragment : BaseFragment(), LocationListener {
     }
 
     override fun onLocationChanged(location: Location) {
+        this.location = location
+
         weatherViewModel.getWeatherAction(
             location.latitude.toString().plus(",").plus(location.longitude.toString())
         )
+        weatherViewModel.getWeather.observe(viewLifecycleOwner) {
+            validateWeatherStatus(it)
+        }
+    }
+
+    private fun validateWeatherStatus(weatherState: WeatherState) {
+        if (weatherState.isLoading) {
+            onLoadingDialog(
+                getString(R.string.wait_moment),
+                getString(R.string.sign_in_message)
+            )
+        }
+
+        weatherState.data?.let {
+            dismissDialog()
+            setWeatherView(it)
+        }
+
+        if (weatherState.error?.isNotEmpty() == true) {
+            dismissDialog()
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.cannot_get_weather_info),
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+
+    private fun setWeatherView(weatherInfo: WeatherDto) {
+        binding?.apply {
+            weatherStateTextView.text = weatherInfo.weatherState
+            weatherLocationTextView.text = weatherInfo.region
+            weatherDateTextView.text = weatherInfo.date
+            weatherTemperatureDegreesCentigradeTextView.text = weatherInfo.tempC.plus("°")
+            progressBar.visibility = View.GONE
+        }
     }
 }

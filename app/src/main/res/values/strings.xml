@@ -26,4 +26,5 @@
     <string name="new_student_registered">Estudiante registrado</string>
     <string name="student_age">Edad del estudiante</string>
     <string name="delete_student_success">Estudiante eliminado</string>
+    <string name="cannot_get_weather_info">No se pudo obtener información del clima</string>
 </resources>
