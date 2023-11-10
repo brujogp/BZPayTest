@@ -36,6 +36,10 @@ class StudentsListFragment : BaseFragment() {
         getStudentsList()
     }
 
+    fun getStudents() {
+        studentsViewModel.getStudentsList()
+    }
+
     private fun getStudentsList() {
         studentsViewModel.getStudentsList()
         studentsViewModel.getStudentsState.observe(viewLifecycleOwner) {

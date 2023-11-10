@@ -92,7 +92,9 @@ class ScreenStudentsFragment : BaseFragment() {
         }
         if (registerNewStudentState.isSuccess) {
             dismissDialog()
-            studentsViewModel.getStudentsList()
+
+            this.studentsListFragment.getStudents()
+
             Toast.makeText(
                 requireContext(),
                 getString(R.string.new_student_registered),
