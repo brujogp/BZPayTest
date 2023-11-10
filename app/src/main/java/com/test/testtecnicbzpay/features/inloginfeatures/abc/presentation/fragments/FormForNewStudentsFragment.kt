@@ -40,9 +40,21 @@ class FormForNewStudentsFragment(
         this.binding?.apply {
             saveStudentButton.setOnClickListener {
                 if (studentToModify != null) {
-                    modifyStudent(studentNameInputText, studentAgeInputText, subjectInputText)
+                    if (
+                        studentNameInputText.text?.isNotEmpty() == true &&
+                        studentAgeInputText.text?.isNotEmpty() == true &&
+                        subjectInputText.text?.isNotEmpty() == true
+                    ) {
+                        modifyStudent(studentNameInputText, studentAgeInputText, subjectInputText)
+                    }
                 } else {
-                    registerStudent(studentNameInputText, studentAgeInputText, subjectInputText)
+                    if (
+                        studentNameInputText.text?.isNotEmpty() == true &&
+                        studentAgeInputText.text?.isNotEmpty() == true &&
+                        subjectInputText.text?.isNotEmpty() == true
+                    ) {
+                        registerStudent(studentNameInputText, studentAgeInputText, subjectInputText)
+                    }
                 }
                 clearForm(studentNameInputText, studentAgeInputText, subjectInputText)
 
