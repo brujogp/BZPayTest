@@ -13,7 +13,7 @@ import com.google.firebase.ktx.Firebase
 import com.test.testtecnicbzpay.R
 import com.test.testtecnicbzpay.commons.presentation.BaseFragment
 import com.test.testtecnicbzpay.databinding.FragmentCreateAccountBinding
-import com.test.testtecnicbzpay.features.featuresinlogin.HostActivity
+import com.test.testtecnicbzpay.features.inloginfeatures.HostActivity
 import com.test.testtecnicbzpay.features.login.presentation.states.LoggingWithEmailState
 import com.test.testtecnicbzpay.features.login.presentation.viewmodels.LoginViewModel
 

@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/studentsListFragment"
-        android:name="com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.fragments.ScreenStudentsFragment"
+        android:name="com.test.testtecnicbzpay.features.inloginfeatures.abc.presentation.fragments.ScreenStudentsFragment"
         android:label="StudentsListFragment"
         tools:layout="@layout/fragment_students_screen" />
     <fragment
         android:id="@+id/weatherFragment"
-        android:name="com.test.testtecnicbzpay.features.featuresinlogin.weather.presentation.WeatherFragment"
+        android:name="com.test.testtecnicbzpay.features.inloginfeatures.weather.presentation.WeatherFragment"
         android:label="WeatherFragment"
         tools:layout="@layout/fragment_weather" />
 </navigation>

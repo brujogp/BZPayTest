@@ -16,7 +16,7 @@
         android:theme="@style/Theme.TestTecnicBzpay"
         tools:targetApi="31">
         <activity
-            android:name=".features.featuresinlogin.HostActivity"
+            android:name=".features.inloginfeatures.HostActivity"
             android:exported="false" />
         <activity
             android:name=".features.login.presentation.LoginActivity"

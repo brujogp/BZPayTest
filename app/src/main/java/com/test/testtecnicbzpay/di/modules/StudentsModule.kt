@@ -2,14 +2,11 @@ package com.test.testtecnicbzpay.di.modules
 
 import android.content.Context
 import androidx.room.Room
-import com.test.testtecnicbzpay.features.featuresinlogin.abc.data.database.MainDataBase
+import com.test.testtecnicbzpay.features.inloginfeatures.abc.data.database.MainDataBase
 // import com.test.testtecnicbzpay.features.featuresinlogin.abc.data.database.MainDataBase
-import com.test.testtecnicbzpay.features.featuresinlogin.abc.data.database.daos.StudentDto
-import com.test.testtecnicbzpay.features.featuresinlogin.abc.data.repository.StudentsRepository
-import com.test.testtecnicbzpay.features.featuresinlogin.abc.data.repository.StudentsRepositoryImpl
-import com.test.testtecnicbzpay.features.login.data.repository.LoginRepository
-import com.test.testtecnicbzpay.features.login.data.repository.LoginRepositoryImpl
-import com.test.testtecnicbzpay.features.login.data.repository.configRequest
+import com.test.testtecnicbzpay.features.inloginfeatures.abc.data.database.daos.StudentDto
+import com.test.testtecnicbzpay.features.inloginfeatures.abc.data.repository.StudentsRepository
+import com.test.testtecnicbzpay.features.inloginfeatures.abc.data.repository.StudentsRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
