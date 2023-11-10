@@ -79,6 +79,10 @@ dependencies {
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    implementation("com.squareup.okhttp3:okhttp:3.14.9")
+    // implementation("com.squareup.okhttp3:logging-interceptor:$navigationVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
 
     // Hilt
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
@@ -99,6 +103,7 @@ dependencies {
     // Android RXJava
     implementation("io.reactivex.rxjava3:rxandroid:3.0.2")
     implementation("io.reactivex.rxjava3:rxjava:3.1.5")
+
 }
 
 kapt {

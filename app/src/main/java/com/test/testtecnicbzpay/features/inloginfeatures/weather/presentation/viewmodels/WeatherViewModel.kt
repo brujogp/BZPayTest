@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.test.testtecnicbzpay.features.inloginfeatures.weather.domain.use_cases.GetWeatherUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -13,9 +14,11 @@ class WeatherViewModel @Inject constructor(
     private val getWeatherUseCase: GetWeatherUseCase
 ) : ViewModel() {
 
-    fun getWeatherAction() {
+    fun getWeatherAction(location: String) {
         viewModelScope.launch {
-            //getWeatherUseCase.invoke()
+            getWeatherUseCase.invoke(location).collect() {
+
+            }
         }
     }
 }

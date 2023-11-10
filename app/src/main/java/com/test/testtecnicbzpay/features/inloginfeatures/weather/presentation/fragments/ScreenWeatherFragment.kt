@@ -12,14 +12,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import com.test.testtecnicbzpay.commons.presentation.BaseFragment
 import com.test.testtecnicbzpay.databinding.FragmentWeatherBinding
 import com.test.testtecnicbzpay.features.inloginfeatures.HostActivity
+import com.test.testtecnicbzpay.features.inloginfeatures.weather.presentation.viewmodels.WeatherViewModel
 
 
 class ScreenWeatherFragment : BaseFragment(), LocationListener {
     private var binding: FragmentWeatherBinding? = null
     private lateinit var locationManager: LocationManager
+    private val weatherViewModel by activityViewModels<WeatherViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,6 +71,8 @@ class ScreenWeatherFragment : BaseFragment(), LocationListener {
     }
 
     override fun onLocationChanged(location: Location) {
-        Log.d("TEST-T", location.latitude.toString().plus(location.longitude))
+        weatherViewModel.getWeatherAction(
+            location.latitude.toString().plus(",").plus(location.longitude.toString())
+        )
     }
 }

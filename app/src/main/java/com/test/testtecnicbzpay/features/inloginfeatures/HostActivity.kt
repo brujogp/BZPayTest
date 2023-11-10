@@ -54,8 +54,6 @@ class HostActivity : AppCompatActivity() {
                             (fragment as ScreenWeatherFragment).getLocation()
                         }
                     }
-
-
             } else {
             }
         }
