@@ -8,14 +8,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class RegisterNewStudentUseCase @Inject constructor(
+class DeleteStudentUseCase @Inject constructor(
     private val studentsRepository: StudentsRepository
 ) {
-    operator fun invoke(newStudent: StudentEntityDto): Flow<ResponseState<ActionWithStudentState>> =
+    operator fun invoke(student: StudentEntityDto): Flow<ResponseState<ActionWithStudentState>> =
         flow {
             emit(ResponseState.Loading())
 
-            val response = studentsRepository.registerNewStudent(newStudent)
+            val response = studentsRepository.deleteStudent(student)
             if (response.meta.status == "SUCCESS") {
                 emit(ResponseState.Success(ActionWithStudentState(isSuccess = true)))
             } else if (response.meta.status == "ERROR") {

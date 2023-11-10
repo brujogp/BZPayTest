@@ -8,4 +8,5 @@ interface StudentsRepository {
     suspend fun getStudentsList(): GetStudentsDto
     suspend fun registerNewStudent(newStudent: StudentEntityDto): RegisterStudentDto
     suspend fun modifyStudent(newStudent: StudentEntityDto): RegisterStudentDto
+    suspend fun deleteStudent(student: StudentEntityDto): RegisterStudentDto
 }

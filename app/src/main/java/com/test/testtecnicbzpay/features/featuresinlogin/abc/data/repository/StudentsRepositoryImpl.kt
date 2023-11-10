@@ -48,7 +48,22 @@ class StudentsRepositoryImpl @Inject constructor(
             RegisterStudentDto(
                 Meta(
                     status = "ERROR",
-                    error = "Error al crear estudiante"
+                    error = "Error al modificar estudiante"
+                )
+            )
+        }
+    }
+
+    override suspend fun deleteStudent(student: StudentEntityDto): RegisterStudentDto {
+        return try {
+            this.dao.delete(student.convertToEntityWithId())
+
+            RegisterStudentDto(Meta(status = "SUCCESS"))
+        } catch (e: Exception) {
+            RegisterStudentDto(
+                Meta(
+                    status = "ERROR",
+                    error = "Error al eliminar estudiante"
                 )
             )
         }

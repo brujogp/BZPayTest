@@ -7,10 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.test.testtecnicbzpay.commons.domain.ResponseState
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.domain.use_cases.GetStudentsUseCase
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.domain.dtos.StudentEntityDto
+import com.test.testtecnicbzpay.features.featuresinlogin.abc.domain.use_cases.DeleteStudentUseCase
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.domain.use_cases.ModifyStudentUseCase
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.domain.use_cases.RegisterNewStudentUseCase
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.states.GetStudentsState
-import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.states.RegisterStudentState
+import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.states.ActionWithStudentState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,34 +23,37 @@ class StudentViewModel @Inject constructor(
     private val getStudentsUseCase: GetStudentsUseCase,
     private val registerNewStudentUseCase: RegisterNewStudentUseCase,
     private val modifyStudentUseCase: ModifyStudentUseCase,
+    private val deleteStudentUseCase: DeleteStudentUseCase,
 ) : ViewModel() {
     private val _getStudentsState = MutableLiveData<GetStudentsState>()
     val getStudentsState: LiveData<GetStudentsState> = _getStudentsState
 
-    private val _registerNewStudent = MutableLiveData<RegisterStudentState>()
-    val registerNewStudent: LiveData<RegisterStudentState> = _registerNewStudent
+    private val _registerNewStudent = MutableLiveData<ActionWithStudentState>()
+    val registerNewStudent: LiveData<ActionWithStudentState> = _registerNewStudent
 
+    private val _modifyStudent = MutableLiveData<ActionWithStudentState>()
+    val modifyStudent: LiveData<ActionWithStudentState> = _modifyStudent
 
-    private val _modifyStudent = MutableLiveData<RegisterStudentState>()
-    val modifyStudent: LiveData<RegisterStudentState> = _modifyStudent
+    private val _deleteStudent = MutableLiveData<ActionWithStudentState>()
+    val deleteStudent: LiveData<ActionWithStudentState> = _deleteStudent
 
     fun registerNewStudent(newStudent: StudentEntityDto) {
         viewModelScope.launch(Dispatchers.IO) {
             registerNewStudentUseCase.invoke(newStudent).collect { responseStudentsState ->
                 when (responseStudentsState) {
                     is ResponseState.Loading -> {
-                        _registerNewStudent.postValue(RegisterStudentState(isLoading = true))
+                        _registerNewStudent.postValue(ActionWithStudentState(isLoading = true))
                     }
 
                     is ResponseState.Success -> {
                         _registerNewStudent.postValue(
-                            RegisterStudentState(isSuccess = true)
+                            ActionWithStudentState(isSuccess = true)
                         )
                     }
 
                     is ResponseState.Error -> {
                         _registerNewStudent.postValue(
-                            RegisterStudentState(error = responseStudentsState.message)
+                            ActionWithStudentState(error = responseStudentsState.message)
                         )
                     }
                 }
@@ -86,18 +90,42 @@ class StudentViewModel @Inject constructor(
             modifyStudentUseCase.invoke(student).collect { responseStudentsState ->
                 when (responseStudentsState) {
                     is ResponseState.Loading -> {
-                        _modifyStudent.postValue(RegisterStudentState(isLoading = true))
+                        _modifyStudent.postValue(ActionWithStudentState(isLoading = true))
                     }
 
                     is ResponseState.Success -> {
                         _modifyStudent.postValue(
-                            RegisterStudentState(isSuccess = true)
+                            ActionWithStudentState(isSuccess = true)
                         )
                     }
 
                     is ResponseState.Error -> {
                         _modifyStudent.postValue(
-                            RegisterStudentState(error = responseStudentsState.message)
+                            ActionWithStudentState(error = responseStudentsState.message)
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    fun deleteStudent(student: StudentEntityDto) {
+        viewModelScope.launch(Dispatchers.IO) {
+            deleteStudentUseCase.invoke(student).collect { responseStudentsState ->
+                when (responseStudentsState) {
+                    is ResponseState.Loading -> {
+                        _deleteStudent.postValue(ActionWithStudentState(isLoading = true))
+                    }
+
+                    is ResponseState.Success -> {
+                        _deleteStudent.postValue(
+                            ActionWithStudentState(isSuccess = true)
+                        )
+                    }
+
+                    is ResponseState.Error -> {
+                        _deleteStudent.postValue(
+                            ActionWithStudentState(error = responseStudentsState.message)
                         )
                     }
                 }

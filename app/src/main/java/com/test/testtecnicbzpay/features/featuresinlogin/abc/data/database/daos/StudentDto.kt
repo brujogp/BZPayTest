@@ -1,6 +1,7 @@
 package com.test.testtecnicbzpay.features.featuresinlogin.abc.data.database.daos
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
@@ -16,4 +17,7 @@ interface StudentDto {
 
     @Update
     fun update(users: Student)
+
+    @Delete
+    fun delete(users: Student)
 }

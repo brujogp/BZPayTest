@@ -19,7 +19,10 @@ import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.states
 import com.test.testtecnicbzpay.features.featuresinlogin.abc.presentation.viewmodels.StudentViewModel
 
 
-class StudentsListFragment(private val onEditStudent: (student: StudentEntityDto) -> Unit) :
+class StudentsListFragment(
+    private val onEditStudent: (student: StudentEntityDto) -> Unit,
+    private val onDeleteStudent: (student: StudentEntityDto) -> Unit
+) :
     BaseFragment() {
     private lateinit var adapter: StudentsListAdapter
     private lateinit var studentsList: List<StudentEntityDto>
@@ -150,6 +153,7 @@ class StudentsListFragment(private val onEditStudent: (student: StudentEntityDto
     }
 
     private fun deleteStudent(position: Int) {
+        onDeleteStudent.invoke(studentsList[position])
     }
 }
 
