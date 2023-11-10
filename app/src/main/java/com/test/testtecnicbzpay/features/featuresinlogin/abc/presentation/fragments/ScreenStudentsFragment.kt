@@ -70,7 +70,7 @@ class ScreenStudentsFragment : BaseFragment() {
     private fun deleteStudent(student: StudentEntityDto) {
         this.studentsViewModel.deleteStudent(student)
         this.studentsViewModel.deleteStudent.observe(viewLifecycleOwner) {
-            validateActionOnStudentState(it)
+            validateActionOnStudentState(it, true)
         }
     }
 
@@ -109,7 +109,10 @@ class ScreenStudentsFragment : BaseFragment() {
         }
     }
 
-    private fun validateActionOnStudentState(actionWithStudentState: ActionWithStudentState) {
+    private fun validateActionOnStudentState(
+        actionWithStudentState: ActionWithStudentState,
+        isDeleteStudent: Boolean = false
+    ) {
         if (actionWithStudentState.isLoading) {
             onLoadingDialog(
                 getString(R.string.wait_moment),
@@ -121,11 +124,21 @@ class ScreenStudentsFragment : BaseFragment() {
 
             this.studentsListFragment.getStudents()
 
-            Toast.makeText(
-                requireContext(),
-                getString(R.string.new_student_registered),
-                Toast.LENGTH_LONG
-            ).show()
+            if (isDeleteStudent) {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.delete_student_success),
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.new_student_registered),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
 
             studentsViewModel.modifyStudent.removeObservers(viewLifecycleOwner)
         }
