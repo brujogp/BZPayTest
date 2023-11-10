@@ -58,6 +58,7 @@ class FormForNewStudentsFragment(
                 }
                 clearForm(studentNameInputText, studentAgeInputText, subjectInputText)
 
+                studentNameInputText.isEnabled = true
                 saveStudentButton.text = "Registrar estudiante"
                 studentToModify = null
             }
@@ -117,6 +118,9 @@ class FormForNewStudentsFragment(
         this.studentToModify = student
         this.binding?.apply {
             studentNameInputText.setText(student.studentName)
+            studentNameInputText.isEnabled = false
+
+
             studentAgeInputText.setText(student.studentAge.toString())
             subjectInputText.setText(student.subject)
             saveStudentButton.text = "Modificar estudiante"
