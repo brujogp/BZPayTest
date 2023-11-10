@@ -70,20 +70,11 @@ class StudentsListFragment(private val onEditStudent: (student: StudentEntityDto
     }
 
     private fun validateGetStudentsStatus(getStudentsState: GetStudentsState) {
-        if (getStudentsState.isLoading) {
-            onLoadingDialog(
-                getString(R.string.wait_moment),
-                getString(R.string.get_students_message)
-            )
-        }
-
         getStudentsState.studentsList?.let { result: List<StudentEntityDto> ->
-            dismissDialog()
             setStudentsList(result)
         }
 
         if (getStudentsState.error?.isNotEmpty() == true) {
-            dismissDialog()
             Toast.makeText(
                 requireContext(),
                 getStudentsState.error,

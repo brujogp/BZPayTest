@@ -114,6 +114,8 @@ class ScreenStudentsFragment : BaseFragment() {
                 getString(R.string.new_student_registered),
                 Toast.LENGTH_LONG
             ).show()
+
+            studentsViewModel.modifyStudent.removeObservers(viewLifecycleOwner)
         }
         if (registerStudentState.error?.isNotEmpty() == true) {
             dismissDialog()
@@ -122,6 +124,8 @@ class ScreenStudentsFragment : BaseFragment() {
                 registerStudentState.error,
                 Toast.LENGTH_LONG
             ).show()
+
+            studentsViewModel.modifyStudent.removeObservers(viewLifecycleOwner)
         }
     }
 
